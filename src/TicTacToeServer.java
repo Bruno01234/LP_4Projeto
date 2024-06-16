@@ -29,7 +29,7 @@ public class TicTacToeServer {
                 } else {
                     // Se já houver 2 jogadores, não aceita mais conexões
                     PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                    out.println("Servidor cheio. Tente novamente mais tarde.");
+                    out.println("Servidor cheio. Tenta novamente mais tarde.");
                     socket.close();
                 }
             }
@@ -41,13 +41,13 @@ public class TicTacToeServer {
     private void initializeBoard() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                board[i][j] = '-';
+                board[i][j] = ' ';
             }
         }
     }
 
     private synchronized boolean makeMove(int player, int row, int col) {
-        if (board[row][col] == '-') {
+        if (board[row][col] == ' ') {
             board[row][col] = player == 0 ? 'X' : 'O';
             currentPlayer = 1 - currentPlayer;
             return true;
@@ -68,14 +68,14 @@ public class TicTacToeServer {
 
     private synchronized boolean checkWin() {
         for (int i = 0; i < 3; i++) {
-            if (board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][0] != '-')
+            if (board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][0] != ' ')
                 return true;
-            if (board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[0][i] != '-')
+            if (board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[0][i] != ' ')
                 return true;
         }
-        if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != '-')
+        if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != ' ')
             return true;
-        if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != '-')
+        if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != ' ')
             return true;
         return false;
     }
@@ -83,7 +83,7 @@ public class TicTacToeServer {
     private synchronized boolean checkDraw() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (board[i][j] == '-') {
+                if (board[i][j] == ' ') {
                     return false;
                 }
             }
@@ -151,7 +151,7 @@ public class TicTacToeServer {
                                     broadcast(playerNames[playerIndex] + " (" + (playerIndex == 0 ? 'X' : 'O') + ") é a tua vez!");
                                 }
                             } else {
-                                out.println("Movimento inválido. Tente novamente.");
+                                out.println("Movimento inválido. Tenta novamente.");
                             }
                         }
                     } else {
@@ -181,7 +181,7 @@ public class TicTacToeServer {
         private void resetGame() {
             initializeBoard();
             broadcast(getBoardState());
-            broadcast("Novo jogo iniciado! " + playerNames[0] + " (X) é a sua vez");
+            broadcast("Novo jogo iniciado! " + playerNames[0] + " (X) é a tua vez");
         }
     }
 }
