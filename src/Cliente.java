@@ -25,9 +25,12 @@ public class Cliente {
             }).start();
 
             // Lê o nome do jogador e envia ao servidor
-            System.out.print("Insira seu nome: ");
-            String name = scanner.nextLine();
-            out.println(name);
+          // System.out.print("Insira seu nome: ");
+            String name1 = scanner.nextLine();
+            out.println(name1);
+
+            String name2 = scanner.nextLine();
+            out.println(name2);
 
             // Envia movimentos ao servidor
             while (true) {
